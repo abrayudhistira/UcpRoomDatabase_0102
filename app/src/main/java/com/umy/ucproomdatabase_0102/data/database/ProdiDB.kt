@@ -10,7 +10,7 @@ import com.umy.ucproomdatabase_0102.data.dao.MataKuliahDao
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
 import com.umy.ucproomdatabase_0102.data.entity.MataKuliah
 
-@Database(entities = [MataKuliah::class],[Dosen::class], version = 1, exportSchema = false)
+@Database(entities = [MataKuliah::class, Dosen::class], version = 1, exportSchema = false)
 abstract class ProdiDB : RoomDatabase() {
 
     abstract fun dosenDao():DosenDao

@@ -89,8 +89,8 @@ fun PengelolaHalaman(
                 navArgument(DestinasiMataKuliahDetail.KD_MK) { type = NavType.StringType }
             )
         ) { backStackEntry ->
-            val kd_mk = backStackEntry.arguments?.getString(DestinasiMataKuliahDetail.KD_MK)
-            kd_mk?.let { kd_mk ->
+            val KdMK = backStackEntry.arguments?.getString(DestinasiMataKuliahDetail.KD_MK)
+            KdMK?.let { KdMK ->
                 DetailMataKuliahView(
                     onBack = { navController.popBackStack() },
                     onEditClick = {
