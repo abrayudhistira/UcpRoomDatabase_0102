@@ -4,10 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.umy.ucproomdatabase_0102.data.entity.MataKuliah
 import com.umy.ucproomdatabase_0102.repository.RepoMataKuliah
+import kotlinx.coroutines.launch
 
-class MataKuliahViewModel(private val repoMataKuliah: RepoMataKuliah
+class MataKuliahViewModel(
+    private val repoMataKuliah: RepoMataKuliah
 ) : ViewModel() {
     var uiState by mutableStateOf(MatakuliahUIState())
 
@@ -17,7 +20,7 @@ class MataKuliahViewModel(private val repoMataKuliah: RepoMataKuliah
         )
     }
 
-    fun validateFields() : Boolean {
+    fun validateFields(): Boolean {
         val event = uiState.matakuliahEvent
         val errorState = FormErrorState(
             kd_mk = if (event.kd_mk.isNotEmpty()) null else "Kode tidak boleh kosong",
@@ -30,11 +33,39 @@ class MataKuliahViewModel(private val repoMataKuliah: RepoMataKuliah
         uiState = uiState.copy(isEntryValid = errorState)
         return errorState.isValid()
     }
+
+    fun resetSnackBarMessage() {
+        uiState = uiState.copy(snackBarMessage = null)
+    }
+
+    fun saveData() {
+        val currentEvent = uiState.matakuliahEvent
+        if (validateFields()) {
+            viewModelScope.launch {
+                try {
+                    repoMataKuliah.insertMataKuliah(currentEvent.toMatakuliahEntity())
+                    uiState = uiState.copy(
+                        snackBarMessage = "Data Berhasil Disimpan",
+                        matakuliahEvent = MataKuliahEvent(),
+                        isEntryValid = FormErrorState()
+                    )
+                } catch (e: Exception) {
+                    uiState = uiState.copy(
+                        snackBarMessage = "Data Gagal Disimpan"
+                    )
+                }
+            }
+        } else {
+            uiState = uiState.copy(
+                snackBarMessage = "Input tidak valid periksa kembali data anda"
+            )
+        }
+    }
 }
 
 data class MatakuliahUIState(
     val matakuliahEvent: MataKuliahEvent = MataKuliahEvent(),
-    val isEntryValid:FormErrorState = FormErrorState(),
+    val isEntryValid: FormErrorState = FormErrorState(),
     val snackBarMessage: String? = null,
 )
 
@@ -45,7 +76,7 @@ data class FormErrorState(
     val semester: String? = null,
     val jenis: String? = null,
     val dosen_pengampu: String? = null,
-){
+) {
     fun isValid(): Boolean {
         return kd_mk == null && nama_mk == null && sks == null &&
                 semester == null && jenis == null && dosen_pengampu == null
