@@ -1,4 +1,5 @@
 package com.umy.ucproomdatabase_0102;
 
-class ProdiApp {
+class ProdiApp : Application{
+    lateinit var
 }
