@@ -31,7 +31,7 @@ fun DashboardView(
             .fillMaxSize()
             .background(
                 color = colorResource(
-                    id = R.color.purple_700
+                    id = R.color.primary
                 )
             )
             .padding(horizontal = 16.dp),

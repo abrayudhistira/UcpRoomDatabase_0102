@@ -1,10 +1,14 @@
 package com.umy.ucproomdatabase_0102.ui.view.dosen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
@@ -22,6 +26,32 @@ import androidx.compose.ui.unit.sp
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
 
+@Composable
+fun ListDosen(
+    listDsn: List<Dosen>,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit = {}
+){
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            )
+    ) {
+        items(
+            items = listDsn,
+            itemContent = { dsn ->
+                CardDosen(
+                    dsn = dsn,
+                    onClick = { onClick(dsn.nidn) }
+                )
+            }
+        )
+    }
+}
 
 @Composable
 fun CardDosen(
