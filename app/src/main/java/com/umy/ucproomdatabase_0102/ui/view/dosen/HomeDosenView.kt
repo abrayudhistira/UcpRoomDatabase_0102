@@ -1,6 +1,7 @@
 package com.umy.ucproomdatabase_0102.ui.view.dosen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +15,14 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -25,6 +31,75 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
+import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.HomeUiState
+import kotlinx.coroutines.launch
+
+@Composable
+fun BodyHomeDosenView(
+    homeUiState: HomeUiState,
+    onClick: (String) -> Unit = {},
+    modifier: Modifier = Modifier
+){
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    when {
+        homeUiState.isLoading -> {
+            Box(
+                modifier = modifier
+                    .background(
+                        color = colorResource(
+                            id = R.color.primary
+                        )
+                    )
+                    .fillMaxSize(),
+
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        homeUiState.isError -> {
+            LaunchedEffect(homeUiState.errorMessage) {
+                homeUiState.errorMessage?.let { message ->
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                }
+            }
+        }
+        homeUiState.listDosen.isEmpty() -> {
+            Box(
+                modifier = Modifier
+                    .background(
+                        color = colorResource(
+                            id = R.color.primary
+                        )
+                    )
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Tidak ada data",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(id = R.color.white),
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+        }
+        else -> {
+            ListDosen(
+                listDsn = homeUiState.listDosen,
+                onClick = {
+                    onClick(it)
+                    println(it)
+                },
+                modifier = modifier
+            )
+        }
+    }
+}
 
 @Composable
 fun ListDosen(
