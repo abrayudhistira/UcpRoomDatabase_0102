@@ -1,10 +1,14 @@
 package com.umy.ucproomdatabase_0102.ui.view.matakuliah
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
@@ -25,6 +29,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.data.entity.MataKuliah
+
+@Composable
+fun ListMataKuliah(
+    listMtk: List<MataKuliah>,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit = { }
+) {
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            )
+    ) {
+        item(
+            items(
+                items = listMtk,
+                itemContent = { mtk ->
+                    CardMataKuliah(
+                        mtk = mtk,
+                        onClick = { onClick(mtk.kd_mk) }
+                    )
+            }
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
