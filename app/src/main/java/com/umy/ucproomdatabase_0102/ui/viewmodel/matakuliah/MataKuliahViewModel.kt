@@ -4,6 +4,12 @@ import com.umy.ucproomdatabase_0102.data.entity.MataKuliah
 
 class MataKuliahViewModel
 
+data class MatakuliahUIState(
+    val matakuliahEvent: MataKuliahEvent = MataKuliahEvent(),
+    val isEntryValid:FormErrorState = FormErrorState(),
+    val snackBarMessage: String? = null,
+)
+
 data class FormErrorState(
     val kd_mk: String? = null,
     val nama_mk: String? = null,
