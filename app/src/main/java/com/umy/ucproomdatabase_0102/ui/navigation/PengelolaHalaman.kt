@@ -86,10 +86,10 @@ fun PengelolaHalaman(
         composable(
             DestinasiMataKuliahDetail.routesWithArg,
             arguments = listOf(
-                navArgument(DestinasiMataKuliahDetail.KODE) { type = NavType.StringType }
+                navArgument(DestinasiMataKuliahDetail.KD_MK) { type = NavType.StringType }
             )
         ) { backStackEntry ->
-            val kd_mk = backStackEntry.arguments?.getString(DestinasiMataKuliahDetail.KODE)
+            val kd_mk = backStackEntry.arguments?.getString(DestinasiMataKuliahDetail.KD_MK)
             kd_mk?.let { kd_mk ->
                 DetailMataKuliahView(
                     onBack = { navController.popBackStack() },
@@ -105,7 +105,7 @@ fun PengelolaHalaman(
         composable(
             DestinasiMataKuliahUpdate.routesWithArg,
             arguments = listOf(
-                navArgument(DestinasiMataKuliahUpdate.KODE) { type = NavType.StringType }
+                navArgument(DestinasiMataKuliahUpdate.KD_MK) { type = NavType.StringType }
             )
         ) {
             UpdateMataKuliahView(
