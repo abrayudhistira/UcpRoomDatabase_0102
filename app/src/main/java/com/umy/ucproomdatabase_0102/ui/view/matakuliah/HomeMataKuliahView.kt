@@ -20,11 +20,16 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -33,10 +38,71 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.data.entity.MataKuliah
+import com.umy.ucproomdatabase_0102.ui.customwidget.TopAppBar
 import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.HomeMataKuliahUiState
+import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.HomeMataKuliahViewModel
+import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.PenyediaMataKuliahViewModel
 import kotlinx.coroutines.launch
+
+@Composable
+fun HomeMataKuliahView(
+    viewModel: HomeMataKuliahViewModel = viewModel(factory = PenyediaMataKuliahViewModel.Factory),
+    onAddMatakuliah: () -> Unit = {},
+    onBack:()->Unit,
+    onDetailClick: (String) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        modifier= Modifier
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            )
+            .fillMaxSize()
+            .padding(16.dp)
+            .padding(top = 18.dp),
+        topBar = {
+            TopAppBar(
+                judul = "Daftar Matakuliah",
+                showBackButton = true,
+                onBack = onBack,
+                modifier = modifier
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onAddMatakuliah,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Tambah Matakuliah",
+                )
+            }
+        }
+    ){ innerPadding ->
+        val homeUiState by viewModel.homeMataKuliahUiState.collectAsState()
+
+        BodyHomeMataKuliahView(
+            homeMatakuliahUiState = homeUiState,
+            onClick = {
+                onDetailClick(it)
+            },
+            modifier = Modifier
+                .background(
+                    color = colorResource(
+                        id = R.color.primary
+                    )
+                )
+                .padding(innerPadding)
+        )
+    }
+}
 
 @Composable
 fun BodyHomeMataKuliahView(
