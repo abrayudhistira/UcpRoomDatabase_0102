@@ -2,6 +2,7 @@ package com.umy.ucproomdatabase_0102.ui.viewmodel.dosen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
