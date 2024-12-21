@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.RadioButton
@@ -24,8 +26,54 @@ import androidx.compose.ui.unit.dp
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
 import com.umy.ucproomdatabase_0102.ui.view.widget.DynamicSelectedTextField
+import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.HomeUiState
 import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.FormErrorState
 import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.MataKuliahEvent
+import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.MatakuliahUIState
+
+@Composable
+fun InsertBodyMataKuliah(
+    modifier: Modifier = Modifier,
+    onValueChange: (MataKuliahEvent) -> Unit,
+    onClick: () -> Unit,
+    uiState: MatakuliahUIState,
+    listDosen: HomeUiState
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            ),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        FormMataKuliah(
+            matakuliahEvent = uiState.matakuliahEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = colorResource(
+                        id = R.color.primary
+                    )
+                ),
+            listDsn = listDosen.listDosen
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Yellow,
+            )
+        ){
+            Text("Simpan", color = Color.Black)
+        }
+    }
+}
 
 @Composable
 fun FormMataKuliah(
