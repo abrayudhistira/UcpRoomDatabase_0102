@@ -21,7 +21,7 @@ class UpdateMataKuliahViewModel(
     var updateUIState by mutableStateOf(MatakuliahUIState())
         private set
 
-    private val _KdMk: String = checkNotNull(savedStateHandle[DestinasiMataKuliahUpdate.KODE]) //kosongkan dahulu
+    private val _KdMk: String = checkNotNull(savedStateHandle[DestinasiMataKuliahUpdate.KD_MK]) //kosongkan dahulu
 
     init {
         viewModelScope.launch {

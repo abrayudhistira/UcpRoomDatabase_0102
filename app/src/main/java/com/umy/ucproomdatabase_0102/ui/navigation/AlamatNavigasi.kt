@@ -19,12 +19,12 @@ object DestinasiMataKuliah : AlamatNavigasi {
 
 object DestinasiMataKuliahDetail : AlamatNavigasi {
     override val route = "matakuliahdetail"
-    const val KODE = "kode"
-    val routesWithArg = "$route/{$KODE}"
+    const val KD_MK = "kd_mk"
+    val routesWithArg = "$route/{$KD_MK}"
 }
 
 object DestinasiMataKuliahUpdate : AlamatNavigasi {
     override val route = "matakuliahupdate"
-    const val KODE = "kode"
-    val routesWithArg = "$route/{$KODE}"
+    const val KD_MK = "kd_mk"
+    val routesWithArg = "$route/{$KD_MK}"
 }

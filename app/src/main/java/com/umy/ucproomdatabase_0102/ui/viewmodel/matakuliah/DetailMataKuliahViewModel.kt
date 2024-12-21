@@ -20,7 +20,7 @@ class DetailMataKuliahViewModel(
     savedStateHandle: SavedStateHandle,
     private val repoMataKuliah: RepoMataKuliah,
 ) : ViewModel() {
-    private val _KdMk: String = checkNotNull(savedStateHandle[DestinasiMataKuliahDetail.KODE]) // Kosongkan dulu parameternya
+    private val _KdMk: String = checkNotNull(savedStateHandle[DestinasiMataKuliahDetail.KD_MK]) // Kosongkan dulu parameternya
 
     val detailMataKuliahUiState: StateFlow<DetailMataKuliahUiState> = repoMataKuliah.getDetail(_KdMk)
         .filterNotNull()
