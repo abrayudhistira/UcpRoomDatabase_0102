@@ -78,12 +78,13 @@ class UpdateMataKuliahViewModel(
             )
         }
     }
+
+    fun resetSnackBarMessage() {
+        updateUIState = updateUIState.copy(snackBarMessage = null)
+    }
 }
 
 
-fun resetSnackBarMessage() {
-    updateUIState = updateUIState.copy(snackBarMessage = null)
-}
 
 fun MataKuliah.toUiStateMataKuliah () : MatakuliahUIState = MatakuliahUIState(
     matakuliahEvent = this.toDetailMataKuliahEvent(),
