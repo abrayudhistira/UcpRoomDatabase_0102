@@ -1,11 +1,19 @@
 package com.umy.ucproomdatabase_0102.ui.viewmodel.dosen
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
 import com.umy.ucproomdatabase_0102.repository.RepoDosen
 
 class DosenViewModel (private val repoDosen: RepoDosen) : ViewModel() {
+    var uiState by mutableStateOf(DosenUIState())
 
+    fun updateState(dosenEvent: DosenEvent) {
+        uiState = uiState.copy(
+            dosenEvent = dosenEvent
+        )
+    }
 }
 
 data class DosenUIState(
