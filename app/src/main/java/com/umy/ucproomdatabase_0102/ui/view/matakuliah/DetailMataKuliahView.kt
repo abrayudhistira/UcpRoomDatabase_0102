@@ -7,14 +7,21 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,11 +33,82 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.data.entity.MataKuliah
+import com.umy.ucproomdatabase_0102.ui.customwidget.TopAppBar
 import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.DetailMataKuliahUiState
+import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.DetailMataKuliahViewModel
+import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.PenyediaMataKuliahViewModel
 import com.umy.ucproomdatabase_0102.ui.viewmodel.matakuliah.toMatakuliahEntity
 
+
+@Composable
+fun DetailMataKuliahView(
+    modifier: Modifier = Modifier,
+    viewModel: DetailMataKuliahViewModel = viewModel(factory = PenyediaMataKuliahViewModel.Factory),
+    onBack: () -> Unit = {},
+    onEditClick: (String) -> Unit = {},
+    onDeleteClick: () -> Unit = {}
+) {
+    Scaffold (
+        modifier= Modifier
+            .fillMaxSize()
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            )
+            .padding(16.dp)
+            .padding(top = 18.dp),
+        topBar = {
+            TopAppBar (
+                judul = "Detail MataKuliah",
+                showBackButton = true,
+                onBack = onBack,
+                modifier = modifier
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    onEditClick(viewModel.detailMataKuliahUiState.value.detailMatakuliahUiEvent.kd_mk)
+                },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier
+                    .background(
+                        color = colorResource(
+                            id = R.color.primary
+                        )
+                    )
+                    .padding(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Edit MataKuliah",
+                )
+            }
+        }
+    ) { innerPadding ->
+        val detailUiState by viewModel.detailMataKuliahUiState.collectAsState()
+
+        BodyDetailMataKuliah(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    color = colorResource(
+                        id = R.color.primary
+                    )
+                )
+                .padding(innerPadding),
+            detailMatakuliahUiState = detailUiState,
+            onDeleteClick = {
+                viewModel.deleteMataKuliah()
+                onDeleteClick()
+            }
+        )
+    }
+}
 
 @Composable
 fun BodyDetailMataKuliah(
