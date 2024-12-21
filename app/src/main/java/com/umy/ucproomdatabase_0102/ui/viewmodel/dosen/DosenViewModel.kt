@@ -52,6 +52,10 @@ class DosenViewModel (private val repoDosen: RepoDosen) : ViewModel() {
             )
         }
     }
+
+    fun resetSnackBarMessage() {
+        uiState = uiState.copy(snackBarMessage = null)
+    }
 }
 
 data class DosenUIState(

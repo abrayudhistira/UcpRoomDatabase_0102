@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,18 +15,106 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.umy.ucproomdatabase_0102.R
+import com.umy.ucproomdatabase_0102.ui.customwidget.TopAppBar
+import com.umy.ucproomdatabase_0102.ui.navigation.AlamatNavigasi
 import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.DosenEvent
 import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.DosenUIState
+import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.DosenViewModel
 import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.FormErrorState
+import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.PenyediaDosenViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+
+object DestinasiDosenInsert : AlamatNavigasi {
+    override val route = "insert_dsn"
+}
+
+@Composable
+fun InsertDosenView(
+    onBack:()->Unit,
+    onNavigate:()->Unit,
+    modifier: Modifier = Modifier,
+    viewModel: DosenViewModel = viewModel(factory = PenyediaDosenViewModel.Factory)
+){
+    val uiState = viewModel.uiState
+    val snackbarHostState = remember{ SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+
+    LaunchedEffect(uiState.snackBarMessage) {
+        uiState.snackBarMessage?.let { message ->
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar(message)
+                viewModel.resetSnackBarMessage()
+            }
+        }
+    }
+
+    Scaffold(
+        modifier= Modifier
+            .fillMaxSize()
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            )
+            .padding(16.dp)
+            .padding(top = 18.dp),
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        topBar = {
+            TopAppBar(
+                judul = "Tambah Dosen",
+                showBackButton = true,
+                onBack = onBack,
+                modifier = modifier
+            )
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(colorResource(id = R.color.primary))
+                .padding(padding)
+        ) {
+            InsertBodyDosen(
+                uiState = uiState,
+                onValueChange = { updateEvent ->
+                    viewModel.updateState(updateEvent)
+                },
+                onClick = {
+                    coroutineScope.launch {
+                        if (viewModel.validateFields()) {
+                            viewModel.saveData()
+                            delay(500)
+                            withContext(Dispatchers.Main) {
+                                onNavigate()
+                            }
+                        }
+                    }
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun InsertBodyDosen(
@@ -144,7 +233,7 @@ fun FormDosen(
                     RadioButton(
                         selected = dosenEvent.jeniskelamin == jk,
                         onClick = {
-                            onValueChange(dosenEvent.copy(jenisKelamin = jk))
+                            onValueChange(dosenEvent.copy(jeniskelamin = jk))
                         },
                         colors = RadioButtonDefaults.colors(
                             selectedColor = Color.White,
