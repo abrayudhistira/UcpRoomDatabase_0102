@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.RadioButton
@@ -21,7 +24,51 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.umy.ucproomdatabase_0102.R
 import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.DosenEvent
+import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.DosenUIState
 import com.umy.ucproomdatabase_0102.ui.viewmodel.dosen.FormErrorState
+
+@Composable
+fun InsertBodyDosen(
+    modifier: Modifier = Modifier,
+    onValueChange:(DosenEvent)->Unit,
+    onClick:() -> Unit,
+    uiState: DosenUIState
+){
+    Column (
+        modifier= modifier
+            .fillMaxWidth()
+            .background(
+                color = colorResource(
+                    id = R.color.primary
+                )
+            )
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        FormDosen(
+            dosenEvent = uiState.dosenEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = colorResource(
+                        id = R.color.primary
+                    )
+                )
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Yellow,
+            )
+        ) {
+            Text("Simpan", color = Color.Black)
+        }
+    }
+}
 
 @Composable
 fun FormDosen(
