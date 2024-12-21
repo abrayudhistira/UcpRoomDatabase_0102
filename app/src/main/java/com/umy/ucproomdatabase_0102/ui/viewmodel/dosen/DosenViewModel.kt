@@ -3,8 +3,10 @@ package com.umy.ucproomdatabase_0102.ui.viewmodel.dosen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.umy.ucproomdatabase_0102.data.entity.Dosen
 import com.umy.ucproomdatabase_0102.repository.RepoDosen
+import kotlinx.coroutines.launch
 
 class DosenViewModel (private val repoDosen: RepoDosen) : ViewModel() {
     var uiState by mutableStateOf(DosenUIState())
@@ -24,6 +26,30 @@ class DosenViewModel (private val repoDosen: RepoDosen) : ViewModel() {
         )
         uiState = uiState.copy(isEntryValid = errorState)
         return errorState.isValid()
+    }
+
+    fun saveData() {
+        val currentEvent = uiState.dosenEvent
+        if (validateFields()) {
+            viewModelScope.launch {
+                try {
+                    repoDosen.insertDosen(currentEvent.toDosenEntity())
+                    uiState = uiState.copy(
+                        snackBarMessage = "Data Berhasil Disimpan",
+                        dosenEvent = DosenEvent(),
+                        isEntryValid = FormErrorState()
+                    )
+                }catch (e: Exception) {
+                    uiState = uiState.copy(
+                        snackBarMessage = "Data Gagal Disimpan"
+                    )
+                }
+            }
+        }else {
+            uiState = uiState.copy(
+                snackBarMessage = "Input tidak valid"
+            )
+        }
     }
 }
 
