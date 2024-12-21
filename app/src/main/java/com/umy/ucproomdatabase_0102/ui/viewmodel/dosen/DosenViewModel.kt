@@ -8,6 +8,12 @@ class DosenViewModel (private val repoDosen: RepoDosen) : ViewModel() {
 
 }
 
+data class DosenUIState(
+    val dosenEvent: DosenEvent = DosenEvent(),
+    val isEntryValid:FormErrorState = FormErrorState(),
+    val snackBarMessage: String? = null,
+)
+
 data class FormErrorState(
     val nidn:String? =null,
     val nama:String?= null,
