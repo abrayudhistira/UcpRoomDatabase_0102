@@ -13,7 +13,10 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
+        startDestination = DestinasiHalamanUtama.route
     ){
-
+        composable(route = DestinasiHalamanUtama.route) {
+            
+        }
     }
 }
