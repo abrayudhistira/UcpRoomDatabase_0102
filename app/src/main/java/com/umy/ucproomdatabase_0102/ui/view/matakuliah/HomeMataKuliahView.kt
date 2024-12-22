@@ -217,7 +217,7 @@ fun CardMataKuliah(
             .padding(8.dp),
         colors = androidx.compose.material3.CardDefaults.cardColors(
             containerColor = colorResource(id = R.color.white),
-            contentColor = colorResource(id = R.color.primary)
+            contentColor = colorResource(id = R.color.grey)
         )
     ) {
         Column(

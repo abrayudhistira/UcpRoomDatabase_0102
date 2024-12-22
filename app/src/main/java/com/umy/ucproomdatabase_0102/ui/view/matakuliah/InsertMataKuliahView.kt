@@ -202,15 +202,15 @@ fun FormMataKuliah(
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(kd_mk = it))
             },
-            label = { Text("Kode Mata Kuliah", color = Color.White) },
+            label = { Text("Kode Mata Kuliah", color = Color.Black) },
             isError = errorState.kd_mk != null,
-            placeholder = { Text("Masukkan Kode Mata Kuliah", color = Color.White) },
+            placeholder = { Text("Masukkan Kode Mata Kuliah", color = Color.Black) },
             shape = RoundedCornerShape(16.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = Color.White,
-                focusedTextColor = Color.White,
-                cursorColor = Color.White
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                cursorColor = Color.Black
             )
         )
         Text(
@@ -224,14 +224,14 @@ fun FormMataKuliah(
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(nama_mk = it))
             },
-            label = { Text("Nama Mata Kuliah", color = Color.White) },
+            label = { Text("Nama Mata Kuliah", color = Color.Black) },
             isError = errorState.nama_mk != null,
-            placeholder = { Text("Masukkan Nama Mata Kuliah", color = Color.White) },
+            placeholder = { Text("Masukkan Nama Mata Kuliah", color = Color.Black) },
             shape = RoundedCornerShape(16.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = Color.White,
-                focusedTextColor = Color.White,
-                cursorColor = Color.White
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                cursorColor = Color.Black
             )
         )
         Text(
@@ -239,7 +239,7 @@ fun FormMataKuliah(
             color = Color.Red
         )
 
-        Text(text = "Semester", color = Color.White)
+        Text(text = "Semester", color = Color.Black)
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -254,11 +254,11 @@ fun FormMataKuliah(
                             onValueChange(matakuliahEvent.copy(semester = semesterOption))
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.White,
-                            unselectedColor = Color.White
+                            selectedColor = Color.Black,
+                            unselectedColor = Color.Black
                         )
                     )
-                    Text(text = semesterOption, color = Color.White)
+                    Text(text = semesterOption, color = Color.Black)
                 }
             }
         }
@@ -269,15 +269,15 @@ fun FormMataKuliah(
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(sks = it))
             },
-            label = { Text("SKS", color = Color.White) },
+            label = { Text("SKS", color = Color.Black) },
             isError = errorState.sks != null,
-            placeholder = { Text("Masukkan SKS", color = Color.White) },
+            placeholder = { Text("Masukkan SKS", color = Color.Black) },
             shape = RoundedCornerShape(16.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = Color.White,
-                focusedTextColor = Color.White,
-                cursorColor = Color.White
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                cursorColor = Color.Black
             )
         )
         Text(
@@ -285,7 +285,7 @@ fun FormMataKuliah(
             color = Color.Red
         )
 
-        Text(text = "Jenis", color = Color.White)
+        Text(text = "Jenis", color = Color.Black)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -303,11 +303,11 @@ fun FormMataKuliah(
                             onValueChange(matakuliahEvent.copy(jenis = jenis[0]))
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.White,
-                            unselectedColor = Color.White
+                            selectedColor = Color.Black,
+                            unselectedColor = Color.Black
                         )
                     )
-                    Text(text = jenis[0], color = Color.White)
+                    Text(text = jenis[0], color = Color.Black)
                 }
 
                 Row(
@@ -319,11 +319,11 @@ fun FormMataKuliah(
                             onValueChange(matakuliahEvent.copy(jenis = jenis[1]))
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.White,
-                            unselectedColor = Color.White
+                            selectedColor = Color.Black,
+                            unselectedColor = Color.Black
                         )
                     )
-                    Text(text = jenis[1], color = Color.White)
+                    Text(text = jenis[1], color = Color.Black)
                 }
             }
 
@@ -340,11 +340,11 @@ fun FormMataKuliah(
                             onValueChange(matakuliahEvent.copy(jenis = jenis[2]))
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.White,
-                            unselectedColor = Color.White
+                            selectedColor = Color.Black,
+                            unselectedColor = Color.Black
                         )
                     )
-                    Text(text = jenis[2], color = Color.White)
+                    Text(text = jenis[2], color = Color.Black)
                 }
 
                 Row(
@@ -356,18 +356,18 @@ fun FormMataKuliah(
                             onValueChange(matakuliahEvent.copy(jenis = jenis[3]))
                         },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color.White,
-                            unselectedColor = Color.White
+                            selectedColor = Color.Black,
+                            unselectedColor = Color.Black
                         )
                     )
-                    Text(text = jenis[3], color = Color.White)
+                    Text(text = jenis[3], color = Color.Black)
                 }
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "Dosen Pengampu", color = Color.White)
+        Text(text = "Dosen Pengampu", color = Color.Black)
         DynamicSelectedTextField(
             selectedValue = matakuliahEvent.dosen_pengampu,
             options = namaDosenList,
