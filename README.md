@@ -1,3 +1,6 @@
+[Penjelasan Project]
+https://youtu.be/J3tnNgF6Dmo
+
 ![image](https://github.com/user-attachments/assets/1e4c564e-7f5d-40dd-8e01-727b97cb2efe)
 ![image](https://github.com/user-attachments/assets/396f150c-6068-416d-be6f-563aa4704ce0)
 ![image](https://github.com/user-attachments/assets/9e06d7f8-5758-48da-b179-08da8cdd07d4)
