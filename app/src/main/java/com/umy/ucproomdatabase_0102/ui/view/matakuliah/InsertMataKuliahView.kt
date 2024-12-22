@@ -167,7 +167,7 @@ fun InsertBodyMataKuliah(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Yellow,
+                containerColor = Color.White,
             )
         ) {
             Text("Simpan", color = Color.Black)

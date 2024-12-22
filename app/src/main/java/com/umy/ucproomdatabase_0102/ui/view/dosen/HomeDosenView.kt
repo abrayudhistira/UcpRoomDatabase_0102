@@ -208,8 +208,8 @@ fun CardDosen(
             .fillMaxWidth()
             .padding(8.dp),
         colors = androidx.compose.material3.CardDefaults.cardColors( // Warna interaktif kartu
-            containerColor = colorResource(id = R.color.teal_200), // Warna default
-            contentColor = colorResource(id = R.color.teal_700)
+            containerColor = colorResource(id = R.color.white), // Warna default
+            contentColor = colorResource(id = R.color.primary)
         )
     ){
         Column(

@@ -202,8 +202,8 @@ fun ItemDetailMataKuliah(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = androidx.compose.material3.CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.yellow),
-            contentColor = colorResource(id = R.color.black))
+            containerColor = colorResource(id = R.color.white),
+            contentColor = colorResource(id = R.color.primary))
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             ComponentDetailMataKuliah(judul = "Kode", isinya = matakuliah.kd_mk)
